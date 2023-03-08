@@ -5,7 +5,8 @@ import { View, Text, StyleSheet } from 'react-native'
 
 class Game extends React.Component {
     static propTypes = {
-        randomNumberCount: PropTypes.number,
+
+        randomNumberCount: PropTypes.string.isRequired,
     };
 
     randomNumbers = Array
@@ -18,8 +19,10 @@ class Game extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.target}>{this.target}</Text>
+                <View style={styles.randomContainer}>
                 {this.randomNumbers.map((randomNumber, index) =>
                     <Text key={index}>{randomNumber}</Text>)}
+                     </View>
              
             </View>
         );
@@ -34,10 +37,27 @@ const styles = StyleSheet.create({
     },
 
     target: {
-        fontSize: 40, backgroundColor: '#aaa',
-        marginHorizontal: 50,
+        fontSize: 40,
+         backgroundColor: '#aaa',
+        margin: 50,
         textAlign: 'center',
     },
+
+    randomContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent:'space-around',
+    },
+
+    random: {
+bacckgroundColor: '#999',
+width: 100,
+morginHorizontal: 15,
+marginVertical: 25,
+fontSize: 35,
+textAlign: 'center',
+    }
 });
 
 export default Game;
