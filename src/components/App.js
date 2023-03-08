@@ -5,7 +5,7 @@ class App extends React.Component {
 render()
 {
     return(
-        <Game />
+        <Game RandomNumberCount={7} />
     );
 }
 }
