@@ -67,6 +67,15 @@ const styles = StyleSheet.create({
     fontSize: 35,
     textAlign: 'center',
   },
+  STATUS_PLAYING: {
+    backgroundColor: '#bbb',
+  },
+  STATUS_WON: {
+    backgroundColor: 'green',
+  },
+  STATUS_LOST: {
+    backgroundColor: 'red',
+  },
 });
 
 export default Game;
