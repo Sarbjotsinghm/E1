@@ -15,6 +15,25 @@ class Game extends React.Component {
   target = this.randomNumbers
     .slice(0, this.props.randomNumberCount - 2)
     .reduce((acc, curr) => acc + curr, 0);
+
+    calcGameStatus = nextState => {
+      const sumSelected = nextState.selectedIds.reduce((acc, curr) => {
+        return acc + this.shuffledRandomNumbers[curr];
+      }, 0);
+      if (nextState.remainingSeconds === 0) {
+        return 'LOST';
+      }
+      if (sumSelected < this.target) {
+        return 'PLAYING';
+      }
+      if (sumSelected === this.target) {
+        return 'WON';
+      }
+      if (sumSelected > this.target) {
+        return 'LOST';
+      }
+    };
+
   // todo: shuffle random numbers
   render() {
     return (
