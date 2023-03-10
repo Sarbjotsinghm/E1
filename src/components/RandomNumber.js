@@ -26,3 +26,18 @@ class RandomNumber extends React.Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  random: {
+    backgroundColor: '#999',
+    width: 100,
+    marginHorizontal: 15,
+    marginVertical: 25,
+    fontSize: 35,
+    textAlign: 'center',
+  },
+  disabled: {
+    opacity: 0.3,
+  },
+});
+
+export default RandomNumber;
