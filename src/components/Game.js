@@ -16,6 +16,18 @@ class Game extends React.Component {
     .slice(0, this.props.randomNumberCount - 2)
     .reduce((acc, curr) => acc + curr, 0);
 
+    componentWillUpdate(nextProps, nextState) {
+      if (
+        nextState.selectedIds !== this.state.selectedIds ||
+        nextState.remainingSeconds === 0
+      ) {
+        this.gameStatus = this.calcGameStatus(nextState);
+        if (this.gameStatus !== 'PLAYING') {
+          clearInterval(this.intervalId);
+        }
+      }
+    }
+
     calcGameStatus = nextState => {
       const sumSelected = nextState.selectedIds.reduce((acc, curr) => {
         return acc + this.shuffledRandomNumbers[curr];
