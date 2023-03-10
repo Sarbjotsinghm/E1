@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {View, Text, StyleSheet} from 'react-native';
-
+import shuffle from 'lodash.shuffle';
 class Game extends React.Component {
   static propTypes = {
     randomNumberCount: PropTypes.number.isRequired,
