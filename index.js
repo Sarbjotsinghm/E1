@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 
 // import {AppRegistry} from 'react-native';
@@ -8,7 +8,7 @@
 
 // AppRegistry.registerComponent(TargetSum, () => App);
 
-import { AppRegistry } from 'react-native';
+import {AppRegistry} from 'react-native';
 
 import App from './src/components/App';
 
