@@ -23,72 +23,74 @@ class Game extends React.Component {
   target = this.randomNumbers
     .slice(0, this.props.randomNumberCount - 2)
     .reduce((acc, curr) => acc + curr, 0);
-    
-    shuffledRandomNumbers = shuffle(this.randomNumbers);
-    
-    componentDidMount() {
-      this.intervalId = setInterval(() => {
-        this.setState(
-          prevState => {
-            return {remainingSeconds: prevState.remainingSeconds - 1};
-          },
-          () => {
-            if (this.state.remainingSeconds === 0) {
-              clearInterval(this.intervalId);
-            }
-          },
-        );
-      }, 1000);
-    }
-    componentWillUnmount() {
-      clearInterval(this.intervalId);
-    }
-  
-    isNumberSelected = numberIndex => {
-      return this.state.selectedIds.indexOf(numberIndex) >= 0;
-    };
-  
-    selectNumber = numberIndex => {
-      this.setState(prevState => ({
-        selectedIds: [...prevState.selectedIds, numberIndex],
-      }));
-    };
-    componentWillUpdate(nextProps, nextState) {
-      if (
-        nextState.selectedIds !== this.state.selectedIds ||
-        nextState.remainingSeconds === 0
-      ) {
-        this.gameStatus = this.calcGameStatus(nextState);
-        if (this.gameStatus !== 'PLAYING') {
-          clearInterval(this.intervalId);
-        }
-      }
-    }
 
-    calcGameStatus = nextState => {
-      const sumSelected = nextState.selectedIds.reduce((acc, curr) => {
-        return acc + this.shuffledRandomNumbers[curr];
-      }, 0);
-      if (nextState.remainingSeconds === 0) {
-        return 'LOST';
+  shuffledRandomNumbers = shuffle(this.randomNumbers);
+
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      this.setState(
+        prevState => {
+          return {remainingSeconds: prevState.remainingSeconds - 1};
+        },
+        () => {
+          if (this.state.remainingSeconds === 0) {
+            clearInterval(this.intervalId);
+          }
+        },
+      );
+    }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
+  isNumberSelected = numberIndex => {
+    return this.state.selectedIds.indexOf(numberIndex) >= 0;
+  };
+
+  selectNumber = numberIndex => {
+    this.setState(prevState => ({
+      selectedIds: [...prevState.selectedIds, numberIndex],
+    }));
+  };
+  componentWillUpdate(nextProps, nextState) {
+    if (
+      nextState.selectedIds !== this.state.selectedIds ||
+      nextState.remainingSeconds === 0
+    ) {
+      this.gameStatus = this.calcGameStatus(nextState);
+      if (this.gameStatus !== 'PLAYING') {
+        clearInterval(this.intervalId);
       }
-      if (sumSelected < this.target) {
-        return 'PLAYING';
-      }
-      if (sumSelected === this.target) {
-        return 'WON';
-      }
-      if (sumSelected > this.target) {
-        return 'LOST';
-      }
-    };
+    }
+  }
+
+  calcGameStatus = nextState => {
+    const sumSelected = nextState.selectedIds.reduce((acc, curr) => {
+      return acc + this.shuffledRandomNumbers[curr];
+    }, 0);
+    if (nextState.remainingSeconds === 0) {
+      return 'LOST';
+    }
+    if (sumSelected < this.target) {
+      return 'PLAYING';
+    }
+    if (sumSelected === this.target) {
+      return 'WON';
+    }
+    if (sumSelected > this.target) {
+      return 'LOST';
+    }
+  };
 
   // todo: shuffle random numbers
   render() {
+    const gameStatus = this.gameStatus;
     return (
       <View style={styles.container}>
         <Text style={[styles.target, styles[`STATUS_${gameStatus}`]]}>
-          {this.target}</Text>
+          {this.target}
+        </Text>
         <View style={styles.randomContainer}>
           {this.shuffledRandomNumbers.map((randomNumber, index) => (
             <RandomNumber
@@ -103,11 +105,11 @@ class Game extends React.Component {
           ))}
         </View>
         {this.gameStatus !== 'PLAYING' && (
-        <Button title="Play Again" onPress={this.props.onPlayAgain} />
+          <Button title="Play Again" onPress={this.props.onPlayAgain} />
         )}
         <Text>{this.state.remainingSeconds}</Text>
       </View>
-    ),
+    );
   }
 }
 
