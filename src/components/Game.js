@@ -9,13 +9,18 @@ class Game extends React.Component {
     initialSeconds: PropTypes.number.isRequired,
     onPlayAgain: PropTypes.func.isRequired,
   };
+  state = {
+    selectedIds: [],
+    remainingSeconds: this.props.initialSeconds,
+  };
+  gameStatus = 'PLAYING';
   randomNumbers = Array.from({lenght: this.props.randomNumberCount}).map(
     () => 1 + Math.floor(10 * Math.random()),
   );
   target = this.randomNumbers
     .slice(0, this.props.randomNumberCount - 2)
     .reduce((acc, curr) => acc + curr, 0);
-    
+
     componentDidMount() {
       this.intervalId = setInterval(() => {
         this.setState(
