@@ -15,7 +15,34 @@ class Game extends React.Component {
   target = this.randomNumbers
     .slice(0, this.props.randomNumberCount - 2)
     .reduce((acc, curr) => acc + curr, 0);
-
+    
+    componentDidMount() {
+      this.intervalId = setInterval(() => {
+        this.setState(
+          prevState => {
+            return {remainingSeconds: prevState.remainingSeconds - 1};
+          },
+          () => {
+            if (this.state.remainingSeconds === 0) {
+              clearInterval(this.intervalId);
+            }
+          },
+        );
+      }, 1000);
+    }
+    componentWillUnmount() {
+      clearInterval(this.intervalId);
+    }
+  
+    isNumberSelected = numberIndex => {
+      return this.state.selectedIds.indexOf(numberIndex) >= 0;
+    };
+  
+    selectNumber = numberIndex => {
+      this.setState(prevState => ({
+        selectedIds: [...prevState.selectedIds, numberIndex],
+      }));
+    };
     componentWillUpdate(nextProps, nextState) {
       if (
         nextState.selectedIds !== this.state.selectedIds ||
