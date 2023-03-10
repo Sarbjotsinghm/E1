@@ -23,9 +23,9 @@ class Game extends React.Component {
   target = this.randomNumbers
     .slice(0, this.props.randomNumberCount - 2)
     .reduce((acc, curr) => acc + curr, 0);
-
-  shuffledRandomNumbers = shuffle(this.randomNumbers);
-
+    
+    shuffledRandomNumbers = shuffle(this.randomNumbers);
+    
     componentDidMount() {
       this.intervalId = setInterval(() => {
         this.setState(
