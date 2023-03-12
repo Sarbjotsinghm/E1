@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   target: {
     fontSize: 40,
     backgroundColor: '#aaa',
-    margin: 50,
+    marginHorizontal: 50,
     textAlign: 'center',
   },
 
